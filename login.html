@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - PolyPal</title>
+    <link rel="stylesheet" href="polypal.css">
+    <link rel="icon" type="image/png" href="image/logo.png">
+</head>
+<body class="loginpage">
+    <main class="logincont">
+        <img id="login-logo" src="image/logo.png" alt="PolyPal Logo">
+        
+        <form id="loginForm">
+            <div class="form-group">
+                <input 
+                    id="username" 
+                    type="email" 
+                    placeholder="Email" 
+                    class="input-box" 
+                    autocomplete="email"
+                    required>
+            </div>
+            
+            <div class="form-group">
+                <input 
+                    id="password" 
+                    type="password" 
+                    placeholder="Password" 
+                    class="input-box" 
+                    minlength="8" 
+                    maxlength="15"
+                    autocomplete="current-password" 
+                    required>
+            </div>
+
+            <div id="error-message" class="error-message"></div>
+            
+            <a href="forgot-password.html" class="forgot-link">Forgot password?</a>
+            
+            <button type="submit" class="login-homebtn">Login</button>
+            
+            <p class="signup-prompt">
+                Don't have an account? <a href="signup.html">Sign Up</a>
+            </p>
+        </form>
+    </main>
+
+    <script type="module" src="polypal.js"></script>
+</body>
+</html>

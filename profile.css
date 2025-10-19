@@ -1,0 +1,139 @@
+body {
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+      background: linear-gradient(90deg, #005EEB, #24aafe,#24aafe, #005EEB);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .settings-container {
+      display: flex;
+      background: #f0faff;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      max-width: 800px;
+      width: 100%;
+      height: auto;
+    }
+
+    .settings-sidebar {
+      background: #e6f7ff;
+      padding: 20px;
+      border-right: 1px solid #ccc;
+      min-width: 180px;
+      border-radius: 12px ;
+    }
+
+    .settings-sidebar h2 {
+      font-size: 20px;
+      margin-bottom: 20px;
+      color: #005f99;
+    }
+
+    .settings-sidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .settings-sidebar li {
+      margin-bottom: 15px;
+      font-size: 16px;
+      cursor: pointer;
+      color: #005f99;
+      font-weight: bold;
+    }
+
+    .settings-sidebar li.active {
+      color: #007bff;
+    }
+
+    .settings-content {
+      flex: 1;
+      padding: 20px;
+    }
+
+    .settings-content h3 {
+      margin-bottom: 20px;
+      color: #005f99;
+    }
+
+    .profile-section {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .profile-image {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      margin-right: 20px;
+      cursor: pointer;
+      object-fit: cover;
+      border: 1px solid;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 5px;
+      color: #333;
+    }
+
+    input, textarea {
+      width: 90%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+
+    textarea {
+      resize: none;
+      height: 70px;
+    }
+
+    .button-group {
+      margin-top: 20px;
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .btn-cancel {
+      background: #ccc;
+      color: #333;
+    }
+
+    .btn-save {
+      background: #007bff;
+      color: white;
+    }
+
+    .btn-save:hover {
+      background: #005f99;
+    }
+
+    #output {
+      margin-top: 15px;
+      padding: 10px;
+      background: #e6f7ff;
+      border-radius: 8px;
+      font-size: 14px;
+      color: #005f99;
+    }

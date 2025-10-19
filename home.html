@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="polypal.css">
+    <link rel="shortcut icon" href="image/logo.png" type="image/x-icon">
+    <script src="https://kit.fontawesome.com/414b0df42d.js"></script>
+</head>
+<body class="landing">
+    <header>
+      <nav>
+        <div class="brandcontainer">
+          <img id="logo" src="image/logo.png" alt="Polypal" />
+          <h1 class="brandtitle">Polypal</h1>
+          <button id="prof-btn" onclick="toProfile()">
+            <i class="fa-solid fa-user fa-2x"></i>
+          </button>
+        </div>
+      </nav>
+      <button class="logout-btn" onclick="logout()">Log out</button>
+    </header>
+    
+    <div class="greet">
+        <h1>Welcome!</h1>
+        <h2>Your learning adventure now with PolyPal, <br> PolyPal your Language Learning Buddy.</h2>
+        <img id="greet-img" src="image/greet.png" alt="">
+    </div>
+    
+    <div class="chat-friends">
+        <h1 id="chat-title">Chat with Friends</h1>
+        <img id="chat-img" src="image/chat.png" alt="">
+        <button class="gotochat-btn" onclick="toChat()">Go to Chats</button>
+    </div>
+    
+    <div class="word-match">
+        <h1 id="word-title">Word Match</h1>
+        <img id="word-img" src="image/wordmatch.jpg" alt="">
+        <button class="playmatch-btn" onclick="play1()">Play</button>
+    </div>
+    
+    <div class="flash-card">
+        <h1 id="flash-title">Flashcards</h1>
+        <img id="flash-img" src="image/flashcard.png" alt="">
+        <button id="flash-btn" onclick="play2()">Play</button>
+    </div>
+    
+    <div class="pronounce">
+      <h1 id="pronounce-title">Pronounciation Practice</h1>
+      <img id="pronounce-img" src="image/pronounce.jpg" alt="">
+      <button id="pronounce-btn" onclick="play3()">Go Practice</button>
+    </div>
+
+    <script type="module" src="polypal.js"></script>
+</body>
+</html>

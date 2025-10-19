@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flashcards</title>
+    <link rel="stylesheet" href="polypal.css">
+    <link rel="shortcut icon" href="image/logo.png" type="image/x-icon">
+</head>
+<body class="flashcard-page">
+    <!-- Back button to return to language selection -->
+    <button id="back-btn" onclick="window.location.href='selectlanguagetolearnforflashcards.html'" aria-label="Back to language selection" style="position:fixed;top:12px;left:12px;background:transparent;border:none;color:#333;font-size:18px;cursor:pointer;padding:6px;">← Select Language</button>
+
+     <h1 class="flash-title">Flashcards</h1>
+  <div class="container">
+    <div class="category">English Category</div>
+    <div class="flashcards">
+      
+      <!-- Flashcard 1 -->
+      <div class="flashcard">
+        <div class="card">
+          <div class="front">English of "Paumanhin"?</div>
+          <div class="back">Sorry</div>
+        </div>
+      </div>
+
+      <!-- Flashcard 2 -->
+      <div class="flashcard">
+        <div class="card">
+          <div class="front">English of "Maganda"?</div>
+          <div class="back">Pretty</div>
+        </div>
+      </div>
+     
+    </div>
+  </div>
+  <a id="flashnext-btn" href="home.html" >Exit</a>
+  <!-- Load as module like other pages -->
+  <script type="module" src="polypal.js"></script>
+</body>
+</html>

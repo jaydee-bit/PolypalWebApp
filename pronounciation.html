@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PolyPal - Pronunciation Tool</title>
+    <link rel="shortcut icon" href="image/logo.png" type="image/x-icon">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background: linear-gradient(90deg,#005EEB,#24aafe, #24aafe, #005EEB );
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 800px;
+            margin-bottom: 40px;
+            background: white;
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: white;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            background-image: url(/image/logo.png);
+            background-size: 100px;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .logo-text {
+            font-size: 32px;
+            font-weight: bold;
+            color: #1565c0;
+        }
+
+        .pronunciation-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            width: 100%;
+            max-width: 500px;
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #1565c0;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        .input-label {
+            display: block;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        .word-input {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid #e3f2fd;
+            border-radius: 12px;
+            font-size: 18px;
+            background: #f8f9fa;
+            transition: all 0.3s ease;
+            color: #333;
+        }
+
+        .word-input:focus {
+            outline: none;
+            border-color: #1e88e5;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(30, 136, 229, 0.1);
+        }
+
+        .language-select {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid #e3f2fd;
+            border-radius: 12px;
+            font-size: 16px;
+            background: #f8f9fa;
+            color: #333;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+            background-position: right 12px center;
+            background-repeat: no-repeat;
+            background-size: 16px;
+        }
+
+        .language-select:focus {
+            outline: none;
+            border-color: #1e88e5;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(30, 136, 229, 0.1);
+        }
+
+        .speak-button {
+            width: 100%;
+            padding: 18px 30px;
+            background: linear-gradient(135deg, #1e88e5, #1565c0);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 30px;
+            box-shadow: 0 4px 15px rgba(30, 136, 229, 0.3);
+        }
+
+        .speak-button:hover {
+            background: linear-gradient(135deg, #1976d2, #1565c0);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(30, 136, 229, 0.4);
+        }
+
+        .speak-button:active {
+            transform: translateY(0);
+        }
+
+        .speak-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .status-message {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 14px;
+            color: #666;
+            min-height: 20px;
+        }
+
+        .status-message.speaking {
+            color: #1e88e5;
+            font-weight: 500;
+        }
+
+        .status-message.error {
+            color: #f44336;
+        }
+
+        /* Decorative elements */
+        .floating-icon {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.1);
+            font-size: 60px;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .floating-icon:nth-child(1) {
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .floating-icon:nth-child(2) {
+            top: 20%;
+            right: 15%;
+            animation-delay: 2s;
+        }
+
+        .floating-icon:nth-child(3) {
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @media (max-width: 1024px) {
+            body {
+                padding: 16px;
+            }
+
+            .header {
+                padding: 16px 20px;
+                max-width: 760px;
+            }
+
+            .logo-text {
+                font-size: 28px;
+            }
+
+            .pronunciation-card {
+                padding: 32px;
+                max-width: 520px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 12px;
+            }
+
+            .header {
+                flex-direction: row;
+                align-items: center;
+                gap: 10px;
+                padding: 14px 16px;
+                border-radius: 12px;
+            }
+
+            .logo-icon {
+                width: 44px;
+                height: 44px;
+                background-size: 80px;
+            }
+
+            .logo-text {
+                font-size: 22px;
+            }
+
+            .pronunciation-card {
+                padding: 24px;
+                margin: 0 8px;
+                border-radius: 14px;
+            }
+
+            .card-title {
+                font-size: 22px;
+            }
+
+            .word-input,
+            .language-select {
+                font-size: 16px;
+                padding: 12px 14px;
+            }
+
+            .speak-button {
+                padding: 14px;
+                font-size: 16px;
+                border-radius: 12px;
+            }
+
+            .floating-icon {
+                font-size: 48px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            .header {
+                padding: 12px 12px;
+                gap: 8px;
+                justify-content: center;
+            }
+
+            .logo-text {
+                font-size: 18px;
+            }
+
+            .pronunciation-card {
+                padding: 18px;
+                width: calc(100% - 12px);
+                box-shadow: none;
+                border-radius: 12px;
+            }
+
+            .card-title {
+                font-size: 20px;
+            }
+
+            .word-input,
+            .language-select {
+                font-size: 15px;
+                padding: 10px 12px;
+            }
+
+            .speak-button {
+                padding: 12px;
+                font-size: 15px;
+            }
+
+            /* Make floating decorative elements disappear on small screens */
+            .floating-icon {
+                display: none;
+            }
+
+            /* Make back button easier to tap */
+            #back-btn {
+                top: 8px;
+                left: 8px;
+                font-size: 16px;
+                padding: 8px 10px;
+            }
+        }
+
+        @media (hover: none) and (pointer: coarse) {
+            /* Mobile: slightly larger controls for touch */
+            .speak-button {
+                padding: 16px;
+            }
+
+            .word-input, .language-select {
+                padding: 14px;
+            }
+        }
+
+        /* Small accessibility tweak: ensure focus outline is visible on keyboard navigation */
+        .word-input:focus, .language-select:focus, .speak-button:focus, #back-btn:focus {
+            outline: 3px solid rgba(30, 136, 229, 0.18);
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Back button to return to main menu -->
+    <button id="back-btn" onclick="window.location.href='home.html'" aria-label="Back to main menu" style="position:fixed;top:12px;left:12px;background:transparent;border:none;color:#333;font-size:18px;cursor:pointer;padding:6px;z-index:999;">← Main Menu</button>
+
+    <div class="floating-icon">🗣️</div>
+    <div class="floating-icon">🎵</div>
+    <div class="floating-icon">🌍</div>
+
+    <header class="header">
+        <div class="logo">
+            <div class="logo-icon"></div>
+            <div class="logo-text">PolyPal</div>
+        </div>
+    </header>
+
+    <div class="pronunciation-card">
+        <h2 class="card-title">🎤 Pronunciation Practice</h2>
+        
+        <div class="input-group">
+            <label for="word" class="input-label">Word or Phrase</label>
+            <input type="text" id="word" class="word-input" placeholder="Enter a word to practice..." autocomplete="off">
+        </div>
+
+        <div class="input-group">
+            <label for="language" class="input-label">Language</label>
+            <select id="language" class="language-select">
+                <option value="en-US">🇺🇸 English (US)</option>
+                <option value="en-GB">🇬🇧 English (UK)</option>
+                <option value="zh-CN">🇨🇳 Chinese (Mandarin)</option>
+                <option value="es-ES">🇪🇸 Spanish (Spain)</option>
+                <option value="es-MX">🇲🇽 Spanish (Mexico)</option>
+                <option value="fr-FR">🇫🇷 French (France)</option>
+                <option value="de-DE">🇩🇪 German (Germany)</option>
+                <option value="it-IT">🇮🇹 Italian (Italy)</option>
+                <option value="pt-BR">🇧🇷 Portuguese (Brazil)</option>
+                <option value="ja-JP">🇯🇵 Japanese</option>
+                <option value="ko-KR">🇰🇷 Korean</option>
+                <option value="ru-RU">🇷🇺 Russian</option>
+                <option value="ar-SA">🇸🇦 Arabic</option>
+                <option value="hi-IN">🇮🇳 Hindi (India)</option>
+                <option value="en-IN">🇮🇳 English (India)</option>
+            </select>
+        </div>
+
+        <button id="speakBtn" class="speak-button">
+            <span>🔊</span>
+            <span>Listen & Learn</span>
+        </button>
+
+        <div id="statusMessage" class="status-message"></div>
+    </div>
+
+    <script>
+        const wordInput = document.getElementById("word");
+        const languageSelect = document.getElementById("language");
+        const speakBtn = document.getElementById("speakBtn");
+        const statusMessage = document.getElementById("statusMessage");
+
+        // Check for speech synthesis support
+        if (!('speechSynthesis' in window)) {
+            statusMessage.textContent = "Sorry, your browser doesn't support speech synthesis.";
+            statusMessage.className = "status-message error";
+            speakBtn.disabled = true;
+        } else {
+            statusMessage.textContent = "Ready to help you practice pronunciation!";
+        }
+
+        function speak() {
+            const word = wordInput.value.trim();
+            const lang = languageSelect.value;
+
+            if (!word) {
+                statusMessage.textContent = "Please enter a word or phrase first.";
+                statusMessage.className = "status-message error";
+                wordInput.focus();
+                return;
+            }
+
+            // Cancel any ongoing speech
+            speechSynthesis.cancel();
+
+            const utterance = new SpeechSynthesisUtterance(word);
+            utterance.lang = lang;
+            utterance.rate = 0.8; // Slightly slower for learning
+            utterance.volume = 1;
+
+            utterance.onstart = () => {
+                speakBtn.disabled = true;
+                statusMessage.textContent = `Speaking "${word}" in ${languageSelect.options[languageSelect.selectedIndex].text}`;
+                statusMessage.className = "status-message speaking";
+            };
+
+            utterance.onend = () => {
+                speakBtn.disabled = false;
+                statusMessage.textContent = "Click to hear it again!";
+                statusMessage.className = "status-message";
+            };
+
+            utterance.onerror = () => {
+                speakBtn.disabled = false;
+                statusMessage.textContent = "Sorry, couldn't pronounce that word.";
+                statusMessage.className = "status-message error";
+            };
+
+            speechSynthesis.speak(utterance);
+        }
+
+        // Event listeners
+        speakBtn.addEventListener("click", speak);
+
+        wordInput.addEventListener("keypress", (e) => {
+            if (e.key === "Enter") {
+                speak();
+            }
+        });
+
+        wordInput.addEventListener("input", () => {
+            if (statusMessage.className.includes("error")) {
+                statusMessage.textContent = "Ready to help you practice pronunciation!";
+                statusMessage.className = "status-message";
+            }
+        });
+
+        // Auto-focus on the input when page loads
+        window.addEventListener("load", () => {
+            wordInput.focus();
+        });
+    </script>
+</body>
+</html>

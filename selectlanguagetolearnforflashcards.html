@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Language</title>
+    <link rel="stylesheet" href="polypal.css">
+    <link rel="shortcut icon" href="image/logo.png" type="image/x-icon">
+</head>
+<body class="lang-container">
+    <!-- Back to main menu button -->
+    <button id="back-btn" onclick="window.location.href='home.html'" aria-label="Back to main menu" style="position:fixed;top:12px;left:12px;background:transparent;border:none;color:#333;font-size:18px;cursor:pointer;padding:6px;">← Main Menu</button>
+
+    <div class="language-cont">
+        <h1 id="langtitle">Select Language to Learn</h1>
+
+        <input type="radio" id="English" name="language" value="English">
+        <label class="radiolbl" for="English">English</label><br><br>
+
+        <input type="radio" id="Spanish" name="language" value="Spanish">
+        <label class="radiolbl" for="Spanish">Spanish</label><br><br>
+
+        <input type="radio" id="Chinese" name="language" value="Chinese">
+        <label class="radiolbl" for="Chinese">Mandarin Chinese</label><br><br>
+
+        <input type="radio" id="French" name="language" value="French">
+        <label class="radiolbl" for="French">French</label><br><br>
+
+        <button id="lang-nextbtn">Next</button>
+        <p id="reminder"></p>
+    </div>
+
+    <!-- Load main module (keeps existing behavior if it loads) -->
+    <script type="module" src="polypal.js"></script>
+
+    <!-- Fallback handler with debug logs -->
+    <script>
+        (function(){
+            console.log('Fallback script loaded for flashcard language selection');
+            const btn = document.getElementById('lang-nextbtn');
+            if (!btn) { console.warn('Next button not found'); return; }
+
+            // Attach handler regardless of window.next4 to guarantee button works
+            btn.addEventListener('click', function(){
+                console.log('Next button clicked (flashcards)');
+                const selected = document.querySelector('input[name="language"]:checked');
+                const reminder = document.getElementById('reminder');
+                console.log('Selected radio:', selected);
+
+                if (selected) {
+                    let dest = null;
+                    switch (selected.value) {
+                        case 'English': dest = 'flashcard.html'; break;
+                        case 'Spanish': dest = 'flashcardspanish.html'; break;
+                        case 'Chinese': dest = 'flashcardchinese.html'; break;
+                        case 'French': dest = 'flashcardfrench.html'; break;
+                    }
+
+                    if (dest) {
+                        console.log('Navigating to', dest);
+                        window.location.assign(dest);
+                    } else {
+                        if (reminder) reminder.textContent = 'Please select a language before continuing!';
+                        console.warn('No matching destination for selected value');
+                    }
+                } else {
+                    if (reminder) reminder.textContent = 'Please select a language before continuing!';
+                    console.warn('No language selected');
+                }
+            });
+        })();
+    </script>
+</body>
+</html>

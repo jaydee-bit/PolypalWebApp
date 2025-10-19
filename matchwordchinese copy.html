@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Match</title>
+    <link rel="stylesheet" href="polypal.css">
+    <link rel="shortcut icon" href="image/logo.png" type="image/x-icon">
+</head>
+<body class="wordmatch-page">
+    <!-- Back button to return to language selection -->
+    <button id="back-btn" onclick="window.location.href='selectlanguagetolearnformatchword.html'" aria-label="Back to language selection" style="position:fixed;top:12px;left:12px;background:transparent;border:none;color:#333;font-size:18px;cursor:pointer;padding:6px;">← Select Language</button>
+
+    <h1 id="wordmatch-title">Match Word</h1>
+    <div class="wordmatch-cont">
+        <h1 class="category">Mandarin Category</h1>
+        <h2 id="question">What is "Hello" in Mandarin Chinese?</h2><br>        
+        <button class="choices" id="correct-ans" data-correct="true" onclick="correctAns(this)">Nihao</button>
+        <button class="choices" id="wrong-ans" onclick="wrongAns(this)">Zàijiàn</button>
+        <h1 id="result"></h1>
+        <a id="next-btn" href="matchwordchinese copy 2.html" >Next</a>
+    </div>
+    <script type="module" src="polypal.js"></script></body></html>
